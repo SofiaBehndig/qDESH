@@ -84,7 +84,7 @@
     hold on;
     plot(x,y)
     
-%Test2
+%Test3
 % Find peaks
 %
 
