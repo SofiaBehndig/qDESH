@@ -10,16 +10,20 @@
 %
 % Jan Axelsson 2021-12-09
 
+    IGNORE_LAST_ROI = true;  % true = Ignore last ROI, which is Ventricle volume, false = all ROIs
+
 
     StoreVariables
     SelectOrientation('Ax');
     Export
     
     TAB=sprintf('\t');
+
     
-    numberOfRois = length(imlook4d_ROINames) - 1;
-    numberOfOutputs = numberOfRois - 1;     % Alt 1) Ignore last which is Ventricle volume
-    numberOfOutputs = numberOfRois;         % Alt 2) Use all
+    numberOfOutputs = numberOfRois;             % Alt 1) Use all ROIs
+    if (IGNORE_LAST_ROI)
+        numberOfOutputs = numberOfRois - 1;     % Alt 2) Ignore last ROI
+    end
     
     for i = 1 : numberOfOutputs
 
@@ -33,7 +37,7 @@
     end
     
     % Display
-    rowNames = imlook4d_ROINames(1:end-1);
+    rowNames = imlook4d_ROINames(1:numberOfOutputs);
     t = table( area', ySlicePos', ...
         'VariableNames',{'area (cm2)','y'},...
         'RowNames', rowNames );
