@@ -18,7 +18,8 @@
     Export
     
     TAB=sprintf('\t');
-
+    
+    numberOfRois = length(imlook4d_ROINames) - 1;
     
     numberOfOutputs = numberOfRois;             % Alt 1) Use all ROIs
     if (IGNORE_LAST_ROI)
