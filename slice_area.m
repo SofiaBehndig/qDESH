@@ -23,7 +23,7 @@
     
     numberOfOutputs = numberOfRois;             % Alt 1) Use all ROIs
     if (IGNORE_LAST_ROI)
-        numberOfOutputs = numberOfRois - 1;     % Alt 2) Ignore last ROI
+        numberOfOutputs = numberOfRois - 2;     % Alt 2) Ignore last two ROIs
     end
     
     for i = 1 : numberOfOutputs
