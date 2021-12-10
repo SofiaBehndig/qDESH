@@ -18,6 +18,7 @@
     Export
     
     TAB=sprintf('\t');
+    clipboardArea = '';
     
     numberOfRois = length(imlook4d_ROINames) - 1;
     
@@ -35,6 +36,7 @@
         
         %disp( [ imlook4d_ROINames{i} TAB num2str(area(i)) ' mm2' TAB '(in y = ' num2str(ySlicePos(i)) ')' ] );
         
+        clipboardArea = [clipboardArea num2str( area(i)) TAB];
     end
     
     % Display
@@ -44,7 +46,9 @@
         'RowNames', rowNames );
     
     disp(t)
-    
+    disp('area is copied to clipboard');
 
-    ClearVariables
+    clipboard('copy', clipboardArea(1:end-1))
+
+    %ClearVariables
  
