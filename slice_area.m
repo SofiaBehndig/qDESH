@@ -50,5 +50,5 @@
 
     clipboard('copy', clipboardArea(1:end-1))
 
-    %ClearVariables
+    ClearVariables
  
