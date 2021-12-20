@@ -1,4 +1,4 @@
-% csf_threshold.m
+% % csf_threshold.m
 %
 % SCRIPT for imlook4d to find a CSF threshold for a ROI
 % determined from mid-distance between CSF-peak and nearest-tissue-peak
@@ -104,16 +104,6 @@
     
     disp( ['First peak at x = ' num2str( x(peak1) ) ]);
     line( [ x(peak1), x(peak1)], [ 0, max(y)] , 'LineWidth', 1, 'Color', 'blue');
-    
-    
-    % Valley
-    i = peak1 + d;
-    while ( yy(i+d) < yy(i) -1 )
-       i = i + 1; 
-    end
-    valley =  floor( i + 0.5*d);
-    disp( ['Valley at x = ' num2str( x(valley) ) ]);
-    line( [ x(valley), x(valley)], [ 0, y(valley)] , 'LineWidth', 1, 'Color', 'black');
 
     
     % Peak 2

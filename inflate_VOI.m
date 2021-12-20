@@ -1,4 +1,4 @@
-% Inflate a VOI in all directions
+% % Inflate a VOI in all directions
 %
 % Idea: inflate a ventricle VOI created from thresholding a low pass
 % filtered MRI image (which makes the VOI a bit small for search volume in
