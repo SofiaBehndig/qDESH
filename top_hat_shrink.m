@@ -17,6 +17,8 @@ Vgoal = 30; % ml
 
 % -----------
 
+returnCode = 1; % Assume error, correct at end
+
 % Voxel size in ml
 dV = 1e-3 * ...
     imlook4d_current_handles.image.pixelSizeX ...
@@ -48,6 +50,8 @@ end
 imlook4d_ROI(origRoiMatrix) = 0; % Clear current ROI
 imlook4d_ROI(roiMatrix) = imlook4d_ROI_number; % Set
 Import
+
+returnCode = 0; % If it comes here a zero is returned
 
 % ----------------------------------
 
