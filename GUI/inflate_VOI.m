@@ -18,10 +18,14 @@
 
 % USER PARAMETERS
 
-dr=7
-; % amount to inflate in all directions
+dr=7; % amount to inflate in all directions (override with deshify_dr, if GUI)
 
 % -----------
+returnCode = 1; % Assume error, correct at end
+
+if ( exist('deshify_dr)' ))
+    dr = deshify_dr;
+end
 
 roiMatrix = imlook4d_ROI == imlook4d_ROI_number;
 
@@ -32,3 +36,8 @@ imlook4d_ROI( newRoi & ( imlook4d_ROI == 0) ) ...
     = imlook4d_ROI_number; % Only voxels that have no ROI in them
     
 Import
+
+% Clean up from GUI
+clear deshify_dr;  
+
+returnCode = 0; % If it comes here a zero is returned

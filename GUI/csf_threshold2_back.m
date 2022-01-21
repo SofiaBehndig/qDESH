@@ -17,6 +17,10 @@
 %
 % Prepare
 %
+
+    returnCode = 1; % Assume error, correct at end
+    histWindow = 0; % Dummy handle to histogram window, so it won't be removed by ClearVariables
+
     % Store list of variables to clean at end
     if ( ~exist( 'imlook4d_store_backup'))
         imlook4d_store_backup = []; % This should not be auto-cleaned
@@ -25,6 +29,12 @@
 
     % Output from 'SCRIPTS/ROI/Roi data to work space'
     data0 = imlook4d_ROI_data.pixels{imlook4d_ROI_number};
+    
+    % If called from GUI
+    if (exist('deshify_data0') )
+        data0 = deshify_data0;
+    end
+    
     data0 = data0( data0 > 0); % Make sure we have only positive values
     
     if isempty(data0)
@@ -79,7 +89,7 @@
 
     
     % Plot
-    figure;
+    histWindow = figure;
     plot(x,yy)
     hold on;
     plot(x,y)
@@ -164,4 +174,7 @@
     ClearVariables
     imlook4d_store = imlook4d_store_backup;
     clear 'imlook4d_store_backup'
+    clear 'deshify_data0'
  
+
+    returnCode = 0; % If it comes here a zero is returned
