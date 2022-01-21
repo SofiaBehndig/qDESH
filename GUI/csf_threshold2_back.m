@@ -19,6 +19,7 @@
 %
 
     returnCode = 1; % Assume error, correct at end
+    histWindow = 0; % Dummy handle to histogram window, so it won't be removed by ClearVariables
 
     % Store list of variables to clean at end
     if ( ~exist( 'imlook4d_store_backup'))
@@ -88,7 +89,7 @@
 
     
     % Plot
-    figure;
+    histWindow = figure;
     plot(x,yy)
     hold on;
     plot(x,y)
