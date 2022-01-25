@@ -23,7 +23,7 @@ dr=7; % amount to inflate in all directions (override with deshify_dr, if GUI)
 % -----------
 returnCode = 1; % Assume error, correct at end
 
-if ( exist('deshify_dr)' ))
+if ( exist('deshify_dr' ))
     dr = deshify_dr;
 end
 
