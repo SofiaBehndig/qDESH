@@ -157,12 +157,12 @@
 % Do Thresholding 
 %
 
-    if (~exist('deshify_data0') )
-        INPUTS = Parameters( {num2str(threshold), '-10',  '1', 'end', '0'} );
-        SelectROI( imlook4d_ROI_number -1); % I am already on next ROI
-        Threshold_within_ROI
-        imlook4d_ROI_number = imlook4d_ROI_number +1; % Set next ROI number again (reset by thresholding script)
-    end
+%    if (~exist('deshify_data0') )
+%         INPUTS = Parameters( {num2str(threshold), '-10',  '1', 'end', '0'} );
+%         SelectROI( imlook4d_ROI_number -1); % I am already on next ROI
+%         Threshold_within_ROI
+%         imlook4d_ROI_number = imlook4d_ROI_number +1; % Set next ROI number again (reset by thresholding script)
+%     end
 
 
 
