@@ -21,10 +21,8 @@
     returnCode = 1; % Assume error, correct at end
     histWindow = 0; % Dummy handle to histogram window, so it won't be removed by ClearVariables
 
-    % Store list of variables to clean at end
-    if ( ~exist( 'imlook4d_store_backup'))
-        imlook4d_store_backup = []; % This should not be auto-cleaned
-    end
+    
+    threshold = 0; % Just so threshold variable won't be cleared
     StoreVariables
 
     % Output from 'SCRIPTS/ROI/Roi data to work space'
@@ -41,22 +39,7 @@
         warning('No pixels in current ROI');
         return
     end
-    
-    % Next ROI number in imlook4d window (set early, used in next call to this script)
-    imlook4d_ROI_number = imlook4d_ROI_number +1; 
-    if  imlook4d_ROI_number <= max( imlook4d_ROI(:) ) 
-       SelectROI( imlook4d_ROI_number  ); 
-    end
-    
-    %
-    % Solve problem that some MR images have regularly missing data points
-    % (due to dumb saving or nifti conversion -- reason unclear)
-    %
-        
-    % scale indata to correct format? needs verification but is "close
-    % enough"  to work
-%     scale1 = min(data0);
-%     data = data0 / scale1;
+
     
     % New method, better because does not assume data values starting at zero    
     s=sort(data0);
@@ -146,39 +129,12 @@
     
     line( [ threshold, threshold], [ 0, max(y)] , 'LineWidth', 1, 'Color', 'green');
 
-    % Set level in imlook4d Threshold GUI :
-    imlook4d_store.Threshold.inputs{1}=num2str( threshold);
-    imlook4d_store.Threshold.inputs{2}='-10';
-    imlook4d_store.Threshold.inputs{3}='1';
-    imlook4d_store.Threshold.inputs{4}='end';
-
-    
-%
-% Do Thresholding 
-%
-
-%    if (~exist('deshify_data0') )
-%         INPUTS = Parameters( {num2str(threshold), '-10',  '1', 'end', '0'} );
-%         SelectROI( imlook4d_ROI_number -1); % I am already on next ROI
-%         Threshold_within_ROI
-%         imlook4d_ROI_number = imlook4d_ROI_number +1; % Set next ROI number again (reset by thresholding script)
-%     end
-
-
 
 %    
 % Clean up
 %
-    if imlook4d_ROI_number > max(imlook4d_ROI(:))
-       dispRed('DONE - ALL ROIs are processed');
-    else
-        SelectROI( imlook4d_ROI_number ); % Set next ROI again (reset by thresholding script)
-    end
 
-    imlook4d_store_backup = imlook4d_store; % Keep even if listed in ClearVariables
     ClearVariables
-    imlook4d_store = imlook4d_store_backup;
-    clear 'imlook4d_store_backup'
     clear 'deshify_data0'
  
 
