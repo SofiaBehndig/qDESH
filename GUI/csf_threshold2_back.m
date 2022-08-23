@@ -127,8 +127,8 @@
     threshold = x(peak1) + ( x(peak2) - x(peak1) ) / 2;
     disp( ['Threshold value at x = ' num2str( threshold ) ]);
     
-    line( [ threshold, threshold], [ 0, max(y)] , 'LineWidth', 1, 'Color', 'green');
-
+    threshold_line = line( [ threshold, threshold], [ 0, max(y)] , 'LineWidth', 1, 'Color', 'green');
+    
 
 %    
 % Clean up
