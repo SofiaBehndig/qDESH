@@ -42,7 +42,8 @@ disp( [ 'Original ROI volume = '  num2str( V(roiMatrix, dV) ) ' ml']);
 % Shrink
 while ( V(roiMatrix, dV) > Vgoal  &&  i < N )
     roiMatrix( :, i, :) = false;
-    disp( [ 'i = ' num2str(i) '   V = ' num2str( V(roiMatrix, dV) ) ' [ml]' ]);
+    Vtophat0 = V(roiMatrix, dV);
+    disp( [ 'i = ' num2str(i) '   V = ' num2str( Vtophat0 ) ' [ml]' ]);
     i = i + 1;
 end
     
