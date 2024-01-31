@@ -19,6 +19,8 @@
 
 function Fixate_number_of_slices( N)
 
+    assignin('base','returnCode',0)
+
     % Work in coronal view (work in BASE workspace)
     evalin('base', 'SelectOrientation(''Cor'')');
     evalin('base', 'Export');
@@ -36,6 +38,8 @@ function Fixate_number_of_slices( N)
     % Warn if not same slice
     if ~all(z == z(1))
         warning([ 'Different slices in the ROIs : ' num2str( z) ])
+        assignin('base','returnCode',1)
+        return
     end
 
     % Keep only N first slicesd for ROIs 1, 2, 3
