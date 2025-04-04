@@ -29,9 +29,11 @@
 %
 % Jan Axelsson 2025-APR-03
 
+    StoreVariables % Remember variables (clear all new ones created by ClearVariables)
 %
 % Input parameters
 % 
+
     
     % Width and height for falx roi 
     falxRoiWidthInMm = 30;        % mm
@@ -42,12 +44,40 @@
 % Prepare before creating ROIs
 % 
 
-    % Top hat initial mask (will be shrunk later)
-    mask = (imlook4d_ROI == imlook4d_ROI_number);
-    
     
     % Make sure coronal view
     SelectOrientation('Cor');
+
+    % Get output from imlook4d window (click "SCRIPTS" and let go, or "Workspace/Export Untouched" first
+    Export
+
+    % Validate that Top Hat ROI
+    currentRoiName = imlook4d_ROINames{ imlook4d_ROI_number};
+    if  ~strcmp( 'tophat', regexprep(lower(currentRoiName), '\s', '') ) % compare with ROI name transformed to lower case without white spaces
+        answer = questdlg( ['Is the ROI "' currentRoiName '" really the correct top hat ROI ?' ], ...
+            'Correct ROI ?', ...
+        	'Correct ROI', 'Wrong ROI', ...
+            'Wrong ROI' ...
+        );
+        % Handle response
+        switch answer
+            case 'Correct ROI'
+                disp([answer ' -- continuing script'])
+                dessert = 1;
+            case 'Wrong ROI'
+                disp([answer ' -- exiting script']);
+                disp(' ');
+                dispRed('Please select the correct Top Hat ROI, and run script again.');  % Imlook4d function -- prints red text to console
+                disp(' ');
+                ClearVariables
+                return
+        end
+    end
+
+
+    % Top hat initial mask (will be shrunk later)
+    mask = (imlook4d_ROI == imlook4d_ROI_number);
+    
     
     
     % Get boundaries in x
@@ -90,7 +120,6 @@
 
     % Slice by slice (coronal view)
     for iz = zStart : zEnd
-        disp(iz)
         mask2D = mask(:,:,iz);
 
         % Drop down from tophat top-pixels -- creating fixed height ROIs following brain contour
@@ -117,5 +146,26 @@
 
     end
 
-    imlook4d_ROI = newROIs; Import
-   
+%
+% Add new ROIs to window
+% 
+    
+    % Put results in two new ROIs
+    INPUTS = Parameters( {'Top Falx'} );
+    newRoiNumber = MakeROI;
+    imlook4d_ROI( newROIs == 1) = newRoiNumber;
+
+    
+    INPUTS = Parameters( {'Bottom Falx'} );
+    newRoiNumber = MakeROI;
+    imlook4d_ROI( newROIs == 2) = newRoiNumber;
+
+    % Clear Top Hat ROI
+    imlook4d_ROI(imlook4d_ROI == imlook4d_ROI_number) = 0;
+
+
+    % Put back
+    Import
+    ClearVariables
+
+
