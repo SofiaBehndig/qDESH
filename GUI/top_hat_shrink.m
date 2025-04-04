@@ -13,7 +13,15 @@
 
 % USER PARAMETERS
 
+% Use Vgoal = 30 ml, or use VolumeGoalInCm3 from deshify if exists
 Vgoal = 30; % ml
+if exist('VolumeGoalInCm3')
+    Vgoal = VolumeGoalInCm3;
+end
+
+disp( ['Vgoal = ' num2str(Vgoal) ]);
+
+
 
 % -----------
 
